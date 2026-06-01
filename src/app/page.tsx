@@ -428,10 +428,10 @@ export default function Home() {
             {/* Padlock PIN Display */}
             <div
               style={{
-                backgroundColor: "rgba(255, 255, 255, 0.15)",
+                backgroundColor: "rgba(0, 0, 0, 0.85)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "2px solid rgba(255, 255, 255, 0.35)",
+                border: "2px solid rgba(255, 255, 255, 0.2)",
                 padding: "12px 28px",
                 borderRadius: "999px",
                 color: "#fff",
@@ -439,7 +439,7 @@ export default function Home() {
                 fontWeight: "700",
                 letterSpacing: "0.15em",
                 marginBottom: "28px",
-                boxShadow: "0 12px 36px rgba(255, 94, 126, 0.35), inset 0 0 15px rgba(255,255,255,0.1)",
+                boxShadow: "0 12px 36px rgba(0, 0, 0, 0.45), inset 0 0 15px rgba(255,255,255,0.05)",
                 textShadow: "0 0 10px rgba(255,255,255,0.3)",
                 userSelect: "none",
                 display: "flex",
@@ -448,7 +448,7 @@ export default function Home() {
               }}
             >
               <span>THE PIN IS :</span>
-              <span style={{ color: "#ffe66d", textShadow: "0 0 12px #ffe66d, 0 0 20px #ffe66d", fontSize: "1.4rem", fontWeight: "800" }}>0001</span>
+              <span style={{ color: "#ffffff", textShadow: "0 0 12px rgba(255, 255, 255, 0.6)", fontSize: "1.4rem", fontWeight: "800" }}>0001</span>
             </div>
 
             {/* Heart Lock Grid card */}
@@ -856,20 +856,6 @@ export default function Home() {
                 }}
               >
                 <ArrowLeft size={16} /> BACK TO LETTER
-              </button>
-              <button
-                onClick={() => setShowCustomModal(true)}
-                className="ending-restart-btn interactive-hover"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  backgroundColor: "#ff5e7e",
-                  border: "none",
-                  boxShadow: "0 4px 12px rgba(255, 94, 126, 0.2)"
-                }}
-              >
-                <Edit3 size={16} /> CREATE YOUR OWN LETTER
               </button>
             </div>
 
