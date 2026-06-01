@@ -45,6 +45,8 @@ export default function Home() {
   const [choice2Text, setChoice2Text] = useState("");
   const [charCount, setCharCount] = useState(0);
   const [isTypingActive, setIsTypingActive] = useState(false);
+  const skipTypingRef = useRef(false);
+  const typewriterIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Custom Letter states
   const [showCustomModal, setShowCustomModal] = useState(false);
@@ -250,6 +252,13 @@ export default function Home() {
       return;
     }
 
+    if (skipTypingRef.current) {
+      setCharCount(fullText.length);
+      setIsTypingActive(false);
+      skipTypingRef.current = false;
+      return;
+    }
+
     setIsTypingActive(true);
     const interval = setInterval(() => {
       setCharCount((prev) => {
@@ -262,13 +271,29 @@ export default function Home() {
         return prev + 1;
       });
     }, 28);
+    typewriterIntervalRef.current = interval;
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      typewriterIntervalRef.current = null;
+    };
   }, [screen, fullText, letterStage, isReadingCustom]);
 
   const handleSkipTyping = () => {
-    setCharCount(fullText.length);
-    setIsTypingActive(false);
+    if (typewriterIntervalRef.current) {
+      clearInterval(typewriterIntervalRef.current);
+      typewriterIntervalRef.current = null;
+    }
+
+    if (isReadingCustom || letterStage === "choice2_selected") {
+      setCharCount(fullText.length);
+      setIsTypingActive(false);
+    } else {
+      skipTypingRef.current = true;
+      setChoice1Text("It's strange to miss someone I have not yet met.");
+      setChoice2Text("Then in this lifetime, somehow I will find you.");
+      setLetterStage("choice2_selected");
+    }
   };
 
   // Custom letter local storage loading
@@ -759,7 +784,7 @@ export default function Home() {
                       transition: "transform 0.2s ease, background-color 0.2s"
                     }}
                   >
-                    SHOW PICTURES
+                    memories
                   </button>
                 )}
               </div>
@@ -849,7 +874,7 @@ export default function Home() {
                 paddingBottom: "40px"
               }}
             >
-              {defaultPhotos.map((photo, idx) => (
+              {defaultPhotos.slice(0, 3).map((photo, idx) => (
                 <motion.div
                   key={photo.id}
                   initial={{ opacity: 0, scale: 0.8, y: 30 }}
@@ -930,7 +955,7 @@ export default function Home() {
               {activePhoto.caption}
             </p>
             <span style={{ fontSize: "0.85rem", color: "#a1a1aa", textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginTop: "16px" }}>
-              PHOTO {activePhoto.id} OF 8
+              PHOTO {activePhoto.id} OF 3
             </span>
           </div>
         )}
