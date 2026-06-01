@@ -396,19 +396,30 @@ export default function Home() {
             }}
           >
             {/* Padlock PIN Display */}
-            <span
+            <div
               style={{
+                backgroundColor: "rgba(255, 255, 255, 0.15)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "2px solid rgba(255, 255, 255, 0.35)",
+                padding: "12px 28px",
+                borderRadius: "999px",
                 color: "#fff",
-                fontSize: "1.125rem",
-                fontWeight: "600",
+                fontSize: "1.25rem",
+                fontWeight: "700",
                 letterSpacing: "0.15em",
-                marginBottom: "24px",
-                textShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                marginBottom: "28px",
+                boxShadow: "0 12px 36px rgba(255, 94, 126, 0.35), inset 0 0 15px rgba(255,255,255,0.1)",
+                textShadow: "0 0 10px rgba(255,255,255,0.3)",
                 userSelect: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
               }}
             >
-              THE PIN IS : 0001
-            </span>
+              <span>THE PIN IS :</span>
+              <span style={{ color: "#ffe66d", textShadow: "0 0 12px #ffe66d, 0 0 20px #ffe66d", fontSize: "1.4rem", fontWeight: "800" }}>0001</span>
+            </div>
 
             {/* Heart Lock Grid card */}
             <div
@@ -550,19 +561,27 @@ export default function Home() {
               style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: "600px",
+                maxWidth: "640px",
                 height: "82vh",
-                background: "linear-gradient(135deg, #fffdfa 0%, #fcf9f2 100%)",
-                borderRadius: "8px",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.22)",
+                background: "linear-gradient(145deg, #ffffff 0%, #faf6ec 100%)",
+                borderRadius: "16px",
+                boxShadow: "0 30px 90px rgba(0,0,0,0.25), inset 0 0 40px rgba(234, 214, 184, 0.12)",
                 border: "1px solid #ebdcb9",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                padding: "36px sm:padding-48px",
+                padding: "40px 48px",
                 overflow: "hidden",
               }}
             >
+              {/* Red Wax Seal Watermark */}
+              <div style={{ position: "absolute", bottom: "75px", right: "44px", width: "90px", height: "90px", opacity: 0.05, pointerEvents: "none", zIndex: 1 }}>
+                <svg viewBox="0 0 100 100" fill="#a8253b" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 10 C27.9 10 10 27.9 10 50 C10 72.1 27.9 90 50 90 C72.1 90 90 72.1 90 50 C90 27.9 72.1 10 50 10 Z M50 20 C66.5 20 80 33.5 80 50 C80 66.5 66.5 80 50 80 C33.5 80 20 66.5 20 50 C20 33.5 33.5 20 50 20 Z" />
+                  <path d="M50 28 C37.8 28 28 37.8 28 50 C28 62.2 37.8 72 50 72 C62.2 72 72 62.2 72 50 C72 37.8 62.2 28 50 28 Z M50 35 C58.3 35 65 41.7 65 50 C65 58.3 58.3 65 50 65 C41.7 65 35 58.3 35 50 C35 41.7 41.7 35 50 35 Z" />
+                  <path d="M46 44 L54 44 L54 48 L58 48 L58 52 L54 52 L54 58 L46 58 L46 52 L42 52 L42 48 L46 48 Z" />
+                </svg>
+              </div>
               {/* Paper line textures overlay */}
               <div
                 style={{
@@ -623,8 +642,7 @@ export default function Home() {
                         setLetterStage("choice1_selected");
                         setCharCount(0);
                       }}
-                      className="ending-restart-btn interactive-hover"
-                      style={{ padding: "12px", border: "1px solid #ebdcb9", background: "#fff", color: "#8a7355", fontSize: "0.85rem", textTransform: "none", fontWeight: "600", width: "100%", textAlign: "left", letterSpacing: "normal" }}
+                      className="letter-choice-btn interactive-hover"
                     >
                       &bull; But tonight, I find myself missing you.
                     </button>
@@ -634,8 +652,7 @@ export default function Home() {
                         setLetterStage("choice1_selected");
                         setCharCount(0);
                       }}
-                      className="ending-restart-btn interactive-hover"
-                      style={{ padding: "12px", border: "1px solid #ebdcb9", background: "#fff", color: "#8a7355", fontSize: "0.85rem", textTransform: "none", fontWeight: "600", width: "100%", textAlign: "left", letterSpacing: "normal" }}
+                      className="letter-choice-btn interactive-hover"
                     >
                       &bull; It&apos;s strange to miss someone I have not yet met.
                     </button>
@@ -664,8 +681,7 @@ export default function Home() {
                         setLetterStage("choice2_selected");
                         setCharCount(0);
                       }}
-                      className="ending-restart-btn interactive-hover"
-                      style={{ padding: "10px", border: "1px solid #ebdcb9", background: "#fff", color: "#8a7355", fontSize: "0.82rem", textTransform: "none", fontWeight: "600", width: "100%", textAlign: "left", letterSpacing: "normal" }}
+                      className="letter-choice-btn interactive-hover"
                     >
                       &bull; Until then, I will keep carrying this quiet hope.
                     </button>
@@ -675,8 +691,7 @@ export default function Home() {
                         setLetterStage("choice2_selected");
                         setCharCount(0);
                       }}
-                      className="ending-restart-btn interactive-hover"
-                      style={{ padding: "10px", border: "1px solid #ebdcb9", background: "#fff", color: "#8a7355", fontSize: "0.82rem", textTransform: "none", fontWeight: "600", width: "100%", textAlign: "left", letterSpacing: "normal" }}
+                      className="letter-choice-btn interactive-hover"
                     >
                       &bull; This can be real.
                     </button>
@@ -686,8 +701,7 @@ export default function Home() {
                         setLetterStage("choice2_selected");
                         setCharCount(0);
                       }}
-                      className="ending-restart-btn interactive-hover"
-                      style={{ padding: "10px", border: "1px solid #ebdcb9", background: "#fff", color: "#8a7355", fontSize: "0.82rem", textTransform: "none", fontWeight: "600", width: "100%", textAlign: "left", letterSpacing: "normal" }}
+                      className="letter-choice-btn interactive-hover"
                     >
                       &bull; That you are real.
                     </button>
@@ -697,8 +711,7 @@ export default function Home() {
                         setLetterStage("choice2_selected");
                         setCharCount(0);
                       }}
-                      className="ending-restart-btn interactive-hover"
-                      style={{ padding: "10px", border: "1px solid #ebdcb9", background: "#fff", color: "#8a7355", fontSize: "0.82rem", textTransform: "none", fontWeight: "600", width: "100%", textAlign: "left", letterSpacing: "normal" }}
+                      className="letter-choice-btn interactive-hover"
                     >
                       &bull; Then in this lifetime, somehow I will find you.
                     </button>
@@ -733,18 +746,20 @@ export default function Home() {
                     onClick={() => setScreen("collage")}
                     className="interactive-hover"
                     style={{
-                      padding: "8px 24px",
-                      borderRadius: "20px",
+                      padding: "12px 36px",
+                      borderRadius: "999px",
                       border: "none",
                       backgroundColor: "#ff5e7e",
                       color: "#fff",
-                      fontWeight: "700",
-                      fontSize: "0.85rem",
+                      fontWeight: "800",
+                      fontSize: "0.88rem",
+                      letterSpacing: "0.12em",
                       cursor: "pointer",
-                      boxShadow: "0 4px 12px rgba(255, 94, 126, 0.2)"
+                      boxShadow: "0 8px 24px rgba(255, 94, 126, 0.35)",
+                      transition: "transform 0.2s ease, background-color 0.2s"
                     }}
                   >
-                    NEXT
+                    SHOW PICTURES
                   </button>
                 )}
               </div>

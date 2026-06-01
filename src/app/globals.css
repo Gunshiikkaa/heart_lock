@@ -1095,3 +1095,35 @@ body.hover-interactive .custom-cursor-ring {
   40%, 60% { transform: translate3d(8px, 0, 0); }
 }
 
+/* Elegant choice buttons inside letter reader */
+.letter-choice-btn {
+  padding: 14px 20px;
+  border: 1px solid #e0d2b7;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #ffffff 0%, #fcfaf5 100%);
+  color: #5c4831;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(212, 192, 161, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: normal;
+  line-height: 1.4;
+  outline: none;
+}
+
+.letter-choice-btn:hover {
+  background: #ffedf0;
+  border-color: #ffcbd5;
+  color: #ff5e7e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 94, 126, 0.18);
+}
+
+.letter-choice-btn:active {
+  transform: translateY(0);
+}
+
