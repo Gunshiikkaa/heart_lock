@@ -90,9 +90,9 @@ export default function MemoryWall({ opacity, cardsRef, onCardClick, isVisible }
         pointerEvents: opacity > 0.1 ? "auto" : "none",
         perspective: 1200,
       }}
-      className="flex items-center justify-center"
+      className="memory-wall-container"
     >
-      <div className="relative w-full h-full max-w-5xl mx-auto">
+      <div className="memory-wall-grid">
         {polaroidPhotos.map((photo, index) => (
           <div
             key={photo.id}
@@ -102,9 +102,12 @@ export default function MemoryWall({ opacity, cardsRef, onCardClick, isVisible }
             onClick={() => onCardClick(photo)}
             onMouseMove={(e) => handleMouseMove(e, index)}
             onMouseLeave={handleMouseLeave}
-            className="polaroid-card absolute w-[240px] sm:w-[280px] select-none interactive-hover"
+            className="polaroid-card interactive-hover"
             style={{
-              // Set initial styles, actual position will be overwritten and animated by GSAP ScrollTrigger
+              position: "absolute",
+              width: "280px",
+              maxWidth: "85vw",
+              userSelect: "none",
               left: "50%",
               top: "50%",
               transform: "translate(-50%, -50%)",
@@ -113,8 +116,12 @@ export default function MemoryWall({ opacity, cardsRef, onCardClick, isVisible }
           >
             {/* Reflection Highlight overlay */}
             <div
-              className="reflection-highlight absolute inset-0 pointer-events-none opacity-0"
+              className="reflection-highlight"
               style={{
+                position: "absolute",
+                inset: 0,
+                pointerEvents: "none",
+                opacity: 0,
                 borderRadius: "4px",
                 mixBlendMode: "overlay",
                 transition: "opacity 0.2s",
@@ -127,7 +134,7 @@ export default function MemoryWall({ opacity, cardsRef, onCardClick, isVisible }
                 alt={photo.alt}
                 fill
                 sizes="(max-width: 768px) 240px, 280px"
-                className="object-cover"
+                style={{ objectFit: "cover" }}
                 draggable={false}
                 priority
               />

@@ -71,35 +71,62 @@ export default function FutureLetter({ charCount, opacity, y, scale, rotateX }: 
         zIndex: 10,
         perspective: 1000,
         transformStyle: "preserve-3d",
+        width: "100%",
       }}
-      className="w-full max-w-[480px] px-6 sm:px-0"
+      className="letter-card-wrapper"
     >
       <motion.div
         ref={cardRef}
         style={{
+          position: "relative",
+          width: "100%",
+          height: "600px",
+          background: "linear-gradient(135deg, #fffdfa 0%, #f9f5ec 100%)",
+          borderRadius: "4px",
+          padding: "48px 32px",
+          boxShadow: "0 30px 70px rgba(0,0,0,0.18), inset 0 0 24px rgba(0,0,0,0.03)",
+          border: "1px solid #e8dfcf",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          overflow: "hidden",
           rotateX: tiltX,
           rotateY: tiltY,
           transformStyle: "preserve-3d",
         }}
-        className="relative w-full h-[600px] bg-gradient-to-br from-[#fffdfa] to-[#f9f5ec] rounded-sm p-8 sm:p-12 shadow-[0_30px_70px_rgba(0,0,0,0.18),_inset_0_0_24px_rgba(0,0,0,0.03)] border border-[#e8dfcf] flex flex-col justify-between overflow-hidden"
       >
         {/* Subtle Paper Texture Overlay */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.035]"
           style={{
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            opacity: 0.035,
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
         />
 
         {/* Realistic Letter Text */}
-        <div className="flex-1 overflow-y-auto whitespace-pre-wrap font-serif text-[#2a2319] leading-relaxed text-[0.95rem] sm:text-[1.05rem] pr-2 select-none" style={{ fontFamily: "var(--font-serif)" }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            whiteSpace: "pre-wrap",
+            fontFamily: "var(--font-serif)",
+            color: "#2a2319",
+            lineHeight: 1.7,
+            fontSize: "1.05rem",
+            paddingRight: "8px",
+            userSelect: "none",
+          }}
+        >
           {typedText}
           {charCount < letterText.length && charCount > 0 && <span className="cursor-blink" />}
         </div>
 
         {/* Paper fold line accents (watermarks) */}
-        <div className="absolute top-[200px] left-0 right-0 h-[1px] bg-[rgba(140,110,80,0.04)] pointer-events-none" />
-        <div className="absolute top-[400px] left-0 right-0 h-[1px] bg-[rgba(140,110,80,0.04)] pointer-events-none" />
+        <div style={{ position: "absolute", top: "200px", left: 0, right: 0, height: "1px", backgroundColor: "rgba(140,110,80,0.04)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: "400px", left: 0, right: 0, height: "1px", backgroundColor: "rgba(140,110,80,0.04)", pointerEvents: "none" }} />
       </motion.div>
     </motion.div>
   );

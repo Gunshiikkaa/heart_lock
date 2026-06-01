@@ -59,27 +59,25 @@ export default function Timeline({ opacity, cardsRef, containerRef, isVisible }:
         perspective: 1500,
         transformStyle: "preserve-3d",
       }}
-      className="flex items-center justify-center overflow-hidden"
+      className="timeline-container"
     >
       {/* Background Soft Fog Grid Layer */}
       <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-1000"
+        className="timeline-fog"
         style={{
-          background: "radial-gradient(circle at center, rgba(255,255,255,0) 20%, rgba(20, 10, 28, 0.45) 100%)",
-          backdropFilter: "blur(2px)",
           opacity: opacity,
         }}
       />
 
       {/* Floating Milestone Cards Container */}
-      <div className="relative w-full max-w-2xl h-[500px] flex items-center justify-center transform-style-preserve-3d">
+      <div className="timeline-cards-track">
         {milestones.map((milestone, index) => (
           <div
             key={milestone.id}
             ref={(el) => {
               if (cardsRef.current) cardsRef.current[index] = el;
             }}
-            className="glass-panel-dark absolute w-[340px] sm:w-[440px] p-8 sm:p-10 text-center flex flex-col items-center justify-center select-none"
+            className="glass-panel-dark timeline-card"
             style={{
               opacity: 0,
               filter: "blur(20px)",
@@ -89,24 +87,21 @@ export default function Timeline({ opacity, cardsRef, containerRef, isVisible }:
             }}
           >
             {/* Visual connector line indicator */}
-            <div className="w-1 h-12 bg-gradient-to-b from-transparent to-[#feb47b] mb-4 opacity-75" />
+            <div className="timeline-connector-top" />
 
-            <span className="text-xs uppercase tracking-[0.25em] text-[#feb47b] font-medium mb-2">
+            <span className="timeline-chapter-label">
               {milestone.date}
             </span>
 
-            <h3
-              className="text-2xl sm:text-3xl font-serif text-white font-semibold tracking-wide mb-4"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
+            <h3 className="timeline-card-title">
               {milestone.title}
             </h3>
 
-            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-[340px]">
+            <p className="timeline-card-desc">
               {milestone.desc}
             </p>
 
-            <div className="w-1 h-12 bg-gradient-to-t from-transparent to-[#feb47b] mt-4 opacity-75" />
+            <div className="timeline-connector-bottom" />
           </div>
         ))}
       </div>

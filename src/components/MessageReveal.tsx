@@ -28,13 +28,11 @@ export default function MessageReveal({ opacity, y, isVisible }: MessageRevealPr
         flexDirection: "column",
         alignItems: "center",
       }}
-      className="w-full max-w-lg px-6 sm:px-0"
+      className="envelope-section-container"
     >
       {/* Visual Instruction label */}
       <span
-        className={`text-xs uppercase tracking-[0.3em] text-orange-200/60 mb-8 transition-opacity duration-500 select-none ${
-          isOpen ? "opacity-0" : "opacity-100"
-        }`}
+        className={`envelope-instruction ${isOpen ? "fade-out" : ""}`}
       >
         Click to open the letter
       </span>
@@ -42,9 +40,7 @@ export default function MessageReveal({ opacity, y, isVisible }: MessageRevealPr
       {/* 3D Envelope Container */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`envelope-wrapper hover:shadow-[0_40px_80px_rgba(254,180,123,0.25)] ${
-          isOpen ? "open" : ""
-        }`}
+        className={`envelope-wrapper ${isOpen ? "open" : ""}`}
       >
         {/* Flap of the envelope */}
         <div className="envelope-flap" />
@@ -55,26 +51,23 @@ export default function MessageReveal({ opacity, y, isVisible }: MessageRevealPr
 
         {/* The Letter that slides out */}
         <div className="envelope-letter select-none">
-          <div className="flex flex-col h-full justify-between pr-2 overflow-y-auto">
-            <div className="space-y-4">
-              <h5
-                className="font-serif text-[#1c1813] text-lg font-bold border-b border-[#ebdcb9] pb-2"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
+          <div className="envelope-letter-inner">
+            <div className="envelope-letter-content">
+              <h5 className="envelope-letter-header">
                 My Dearest,
               </h5>
-              <p className="text-sm font-serif text-[#2a2319] leading-relaxed">
+              <p className="envelope-letter-p">
                 I hope you felt the magic of our journey. From the warmth of the sunset down to the silent whispers of the stars, everything was created to lead me to you.
               </p>
-              <p className="text-sm font-serif text-[#2a2319] leading-relaxed">
+              <p className="envelope-letter-p">
                 No matter where you are or how long it takes, I will wait. Every memory I gather is a gift waiting to be shared. Our tomorrow is already waiting.
               </p>
             </div>
-            <div className="text-right mt-6">
-              <span className="font-handwritten text-[#2a2319] text-2xl block" style={{ fontFamily: "var(--font-handwritten)" }}>
+            <div className="envelope-letter-footer">
+              <span className="envelope-letter-sig">
                 Yours always,
               </span>
-              <span className="text-xs uppercase tracking-[0.2em] text-zinc-500 block mt-1">
+              <span className="envelope-letter-sig-sub">
                 Me
               </span>
             </div>

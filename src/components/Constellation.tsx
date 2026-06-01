@@ -121,12 +121,12 @@ export default function Constellation({ opacity, lineProgress, isVisible }: Cons
         zIndex: 9,
         pointerEvents: opacity > 0.1 ? "auto" : "none",
       }}
-      className="flex items-center justify-center"
+      className="constellation-container"
     >
-      <div className="relative w-full h-full max-w-5xl mx-auto flex items-center justify-center">
+      <div className="constellation-grid">
         {/* Constellation lines layer */}
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none"
+          className="constellation-svg"
           style={{ width: "100%", height: "100%" }}
         >
           {renderLines()}
@@ -139,7 +139,7 @@ export default function Constellation({ opacity, lineProgress, isVisible }: Cons
             <div
               key={star.id}
               onClick={() => setActiveStar(star)}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer clickable-star"
+              className="constellation-star-node clickable-star"
               style={{
                 left: `${star.x}%`,
                 top: `${star.y}%`,
@@ -147,23 +147,19 @@ export default function Constellation({ opacity, lineProgress, isVisible }: Cons
             >
               {/* Outer pulsing ring */}
               <div
-                className="absolute inset-0 w-12 h-12 -left-6 -top-6 rounded-full border border-orange-200/20 animate-ping opacity-60"
+                className="constellation-star-ping"
                 style={{ animationDuration: `${2.5 + star.id}s` }}
               />
 
               {/* Glowing star core */}
               <div
-                className={`w-4 h-4 rounded-full transition-all duration-300 flex items-center justify-center ${
-                  isActive
-                    ? "bg-[#fff] scale-150 shadow-[0_0_20px_#fff,_0_0_30px_#feb47b]"
-                    : "bg-[#feb47b] hover:bg-[#fff] hover:scale-125 shadow-[0_0_10px_#feb47b]"
-                }`}
+                className={`constellation-star-core ${isActive ? "active" : ""}`}
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                <div className="constellation-star-dot" />
               </div>
 
               {/* Star Label */}
-              <span className="absolute top-6 left-1/2 transform -translate-x-1/2 text-xs font-medium uppercase tracking-[0.2em] text-orange-200/70 select-none pointer-events-none whitespace-nowrap">
+              <span className="constellation-star-label">
                 {star.name}
               </span>
             </div>
@@ -172,34 +168,29 @@ export default function Constellation({ opacity, lineProgress, isVisible }: Cons
 
         {/* Constellation Memory Popup Modal Overlay */}
         {activeStar && (
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center px-6">
-            <div className="glass-panel-dark max-w-sm w-full p-8 relative border border-orange-200/10 text-center shadow-2xl animate-fade-in">
+          <div className="constellation-modal-overlay">
+            <div className="glass-panel-dark constellation-modal-card">
               <button
                 onClick={() => setActiveStar(null)}
-                className="absolute top-4 right-4 text-orange-200/60 hover:text-white transition-colors interactive-hover"
+                className="constellation-modal-close interactive-hover"
                 aria-label="Close details"
               >
                 <X size={18} />
               </button>
 
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#feb47b] font-medium block mb-2">
+              <span className="constellation-modal-label">
                 Constellation Connection
               </span>
 
-              <h4
-                className="text-2xl font-serif text-white font-semibold mb-4"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
+              <h4 className="constellation-modal-title">
                 {activeStar.title}
               </h4>
 
-              <p className="text-zinc-300 text-sm leading-relaxed mb-4">
+              <p className="constellation-modal-desc">
                 {activeStar.desc}
               </p>
 
-              <div
-                className="w-12 h-[1px] bg-[#feb47b]/40 mx-auto mt-6"
-              />
+              <div className="constellation-modal-divider" />
             </div>
           </div>
         )}

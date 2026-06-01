@@ -360,16 +360,36 @@ export default function Home() {
 
   return (
     <SmoothScroll>
-      <div ref={spacerRef} className="relative w-full h-[850vh]">
+      <div ref={spacerRef} style={{ position: "relative", width: "100%", height: "850vh" }}>
         {/* Fixed Core Stage Container */}
         <div
           ref={fixedContainerRef}
-          className="fixed inset-0 w-full h-full overflow-hidden"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+            overflow: "hidden"
+          }}
         >
           {/* Parallax Scalable Background Layer */}
           <div
             ref={canvasContainerRef}
-            className="absolute inset-0 w-full h-full origin-center overflow-hidden transition-all duration-300"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: "100%",
+              height: "100%",
+              overflow: "hidden",
+              transformOrigin: "center center",
+              transition: "transform 0.3s ease, border-radius 0.3s ease"
+            }}
           >
             <BackgroundOrchestrator
               progressRef={scrollProgressRef}
@@ -381,26 +401,23 @@ export default function Home() {
           {activeSections.hero && (
             <div
               ref={heroTextRef}
-              className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10 select-none pointer-events-none"
+              className="hero-section-container"
             >
-              <span className="text-xs uppercase tracking-[0.35em] text-orange-200/80 mb-6 font-semibold animate-pulse">
+              <span className="hero-subtitle">
                 A love letter to tomorrow
               </span>
-              <h1
-                className="text-4xl sm:text-6xl font-serif text-white font-bold leading-tight max-w-4xl"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
+              <h1 className="hero-title">
                 Some stories begin with a hello.
                 <br />
-                <span className="text-orange-200">Ours begins before we&apos;ve even met.</span>
+                <span>Ours begins before we&apos;ve even met.</span>
               </h1>
-              <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">
+              <div className="scroll-indicator">
+                <span className="scroll-indicator-text">
                   Scroll to write
                 </span>
                 {/* Pulsing Mouse Scroll Indicator */}
-                <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
-                  <div className="w-1.5 h-3 bg-[#feb47b] rounded-full animate-bounce" />
+                <div className="scroll-mouse-outer">
+                  <div className="scroll-mouse-wheel" />
                 </div>
               </div>
             </div>
@@ -508,18 +525,18 @@ export default function Home() {
         >
           {activePhoto && (
             <div
-              className="lightbox-content relative flex flex-col items-center text-center p-6 bg-white rounded-lg max-w-[500px]"
+              className="lightbox-content-card"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setActivePhoto(null)}
-                className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-900 transition-colors bg-zinc-100 hover:bg-zinc-200 rounded-full p-2.5 z-10 interactive-hover"
+                className="lightbox-close-button interactive-hover"
                 aria-label="Close photo"
               >
                 <X size={20} />
               </button>
 
-              <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-zinc-100 mb-6 border border-zinc-100 shadow-inner">
+              <div className="lightbox-image-wrapper">
                 <Image
                   src={activePhoto.src}
                   alt={activePhoto.alt}
@@ -530,10 +547,7 @@ export default function Home() {
                 />
               </div>
 
-              <p
-                className="font-handwritten text-[#2b2b2b] text-3xl leading-relaxed mt-2"
-                style={{ fontFamily: "var(--font-handwritten)" }}
-              >
+              <p className="lightbox-caption-text">
                 {activePhoto.caption}
               </p>
             </div>
