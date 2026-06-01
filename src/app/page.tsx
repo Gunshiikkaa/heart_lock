@@ -45,7 +45,6 @@ export default function Home() {
   const [choice2Text, setChoice2Text] = useState("");
   const [charCount, setCharCount] = useState(0);
   const [isTypingActive, setIsTypingActive] = useState(false);
-  const skipTypingRef = useRef(false);
   const typewriterIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Custom Letter states
@@ -208,6 +207,7 @@ export default function Home() {
       setCharCount(0);
       setLetterStage("intro");
       setIsReadingCustom(false);
+      setIsTypingActive(true);
     } else {
       // Error Feedback: Shake padlock
       setIsLockShaking(true);
@@ -247,19 +247,14 @@ export default function Home() {
 
   // Character Typewriter script
   useEffect(() => {
-    if (screen !== "letter") {
-      setIsTypingActive(false);
+    if (screen !== "letter" || !isTypingActive) {
+      if (typewriterIntervalRef.current) {
+        clearInterval(typewriterIntervalRef.current);
+        typewriterIntervalRef.current = null;
+      }
       return;
     }
 
-    if (skipTypingRef.current) {
-      setCharCount(fullText.length);
-      setIsTypingActive(false);
-      skipTypingRef.current = false;
-      return;
-    }
-
-    setIsTypingActive(true);
     const interval = setInterval(() => {
       setCharCount((prev) => {
         if (prev >= fullText.length) {
@@ -277,7 +272,7 @@ export default function Home() {
       clearInterval(interval);
       typewriterIntervalRef.current = null;
     };
-  }, [screen, fullText, letterStage, isReadingCustom]);
+  }, [screen, isTypingActive, fullText]);
 
   const handleSkipTyping = () => {
     if (typewriterIntervalRef.current) {
@@ -285,14 +280,22 @@ export default function Home() {
       typewriterIntervalRef.current = null;
     }
 
+    setIsTypingActive(false);
+
     if (isReadingCustom || letterStage === "choice2_selected") {
       setCharCount(fullText.length);
-      setIsTypingActive(false);
     } else {
-      skipTypingRef.current = true;
       setChoice1Text("It's strange to miss someone I have not yet met.");
       setChoice2Text("Then in this lifetime, somehow I will find you.");
       setLetterStage("choice2_selected");
+
+      const defaultFullText = `Dear My Future Wife,\n\nI don't know your name yet.\n\nI don't know the sound of your laugh, the way your eyes look when you're tired, or how you take your coffee in the morning. I don't know if we've already crossed paths in some ordinary place, and never knew it, or if life is still preparing the road that will lead me to you.` +
+        `\n\nIt's strange to miss someone I have not yet met. Stranger to feel a kind of longing for a person whose face I cannot picture clearly, and yet, somewhere deep in me, there is a quiet space that feels like it belongs to you. A place for my future wife...` +
+        `\n\nAnd hoping that someday this letter will no longer be addressed to a dream, but to the woman drying her hands, smiling, reading it with me in our kitchen.\n\nThe memories that do not yet exist... the love you hide behind your smile... the dream of you is always on my mind. I want to tell you that I've been waiting for you, page by page, never trying to skip to the ending.\n\nAnd one day, if I am blessed enough to call you my wife, I'll love to know that I have been waiting for you even before I knew who you were.\n\nSome words remain silent, but I will write them to continue in this space, for the day I will finally see you.` +
+        `\n\nThen in this lifetime, somehow I will find you.` +
+        `\n\nWith love,\nYour future husband, Kenji.`;
+
+      setCharCount(defaultFullText.length);
     }
   };
 
@@ -315,6 +318,7 @@ export default function Home() {
     setLetterStage("ended");
     setCharCount(0);
     setScreen("letter");
+    setIsTypingActive(true);
   };
 
   const handleRestartLetter = () => {
@@ -323,6 +327,7 @@ export default function Home() {
     setChoice2Text("");
     setCharCount(0);
     setIsReadingCustom(false);
+    setIsTypingActive(true);
   };
 
   return (
@@ -666,6 +671,7 @@ export default function Home() {
                         setChoice1Text("But tonight, I find myself missing you.");
                         setLetterStage("choice1_selected");
                         setCharCount(0);
+                        setIsTypingActive(true);
                       }}
                       className="letter-choice-btn interactive-hover"
                     >
@@ -676,6 +682,7 @@ export default function Home() {
                         setChoice1Text("It's strange to miss someone I have not yet met.");
                         setLetterStage("choice1_selected");
                         setCharCount(0);
+                        setIsTypingActive(true);
                       }}
                       className="letter-choice-btn interactive-hover"
                     >
@@ -705,6 +712,7 @@ export default function Home() {
                         setChoice2Text("Until then, I will keep carrying this quiet hope.");
                         setLetterStage("choice2_selected");
                         setCharCount(0);
+                        setIsTypingActive(true);
                       }}
                       className="letter-choice-btn interactive-hover"
                     >
@@ -715,6 +723,7 @@ export default function Home() {
                         setChoice2Text("This can be real.");
                         setLetterStage("choice2_selected");
                         setCharCount(0);
+                        setIsTypingActive(true);
                       }}
                       className="letter-choice-btn interactive-hover"
                     >
@@ -725,6 +734,7 @@ export default function Home() {
                         setChoice2Text("That you are real.");
                         setLetterStage("choice2_selected");
                         setCharCount(0);
+                        setIsTypingActive(true);
                       }}
                       className="letter-choice-btn interactive-hover"
                     >
@@ -735,6 +745,7 @@ export default function Home() {
                         setChoice2Text("Then in this lifetime, somehow I will find you.");
                         setLetterStage("choice2_selected");
                         setCharCount(0);
+                        setIsTypingActive(true);
                       }}
                       className="letter-choice-btn interactive-hover"
                     >
